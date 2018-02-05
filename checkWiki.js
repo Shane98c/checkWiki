@@ -11,9 +11,11 @@ String.prototype.toProperCase = function() {
   });
 };
 
-regions.features.map(region => {
+regions.features.map((region, index) => {
   const { name } = region.properties;
-  return checkWiki(name.toProperCase(), region);
+  setTimeout(() => {
+    checkWiki(name.toProperCase(), region);
+  }, 1 * index);
 });
 
 async function checkWiki(name, region) {
