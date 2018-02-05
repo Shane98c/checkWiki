@@ -1,18 +1,18 @@
-let regions = require('./regions.json');
-let rp = require('request-promise');
-let fs = require('fs');
+const regions = require('./regions.json');
+const rp = require('request-promise');
+const fs = require('fs');
 
-let goodWiki = [];
-let badWiki = [];
+const goodWiki = [];
+const badWiki = [];
 
 String.prototype.toProperCase = function () {
   return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
-for (const region of regions.features) {
-  let name = region.properties.name.toProperCase();
-  checkWiki(name, region);
-}
+regions.features.map(region => {
+  const {name} = region.properties;
+  return checkWiki(name.toProperCase(), region);
+})
 
 async function checkWiki(name, region) {
   try {
