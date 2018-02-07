@@ -21,7 +21,7 @@ async function getPbdb() {
 function loopPbdb(pbdb) {
   console.log(pbdb.records.length, "records in this query");
   console.log("filtering duplicates...");
-  pbdbDeDoop = pbdb.records.filter(
+  const pbdbDeDoop = pbdb.records.filter(
     (data, index, self) => self.findIndex(t => t.tna === data.tna) === index
   );
   console.log(pbdbDeDoop.length, "unique taxa in this query");
