@@ -30,7 +30,7 @@ function loopPbdb(pbdb) {
     const { tna } = record;
     setTimeout(() => {
       checkWiki(tna);
-    }, 10 * index);
+    }, 20 * index);
   });
 }
 
