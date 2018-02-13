@@ -4,12 +4,79 @@ const fs = require("fs");
 const goodWiki = [];
 const badWiki = [];
 
-getPbdb();
+const taxa = [
+  "Chalicotheriinae",
+  "Cetacea",
+  "Andrewsarchus",
+  "Brontotheriidae",
+  "Indricotheriinae",
+  "Dunkleosteus",
+  "Chondrichthyes",
+  "Phorusrhacidae",
+  "Gastornithidae",
+  "Argentavis",
+  "Dinornis",
+  "Eohippus",
+  "Proboscidea",
+  "Protoceratidae",
+  "Rhinocerotidae",
+  "Megacerops",
+  "Moeritherium",
+  "Ceratogaulus",
+  "Gomphotherium",
+  "Deinotherium",
+  "Condylarthra",
+  "Paraceratherium",
+  "Mesonychia",
+  "Pantodonta",
+  "Hyaenodontidae",
+  "Thylacosmilus",
+  "Glyptodon",
+  "Castoroides",
+  "Toxodon",
+  "Megatherium",
+  "Arctodus",
+  "Smilodon",
+  "Mammuthus",
+  "Mammut",
+  "Coelodonta",
+  "Megaloceras",
+  "Gigantopithecus",
+  "Phlegethontia",
+  "Temnospondyli",
+  "Lepospondyli",
+  "Sauropterygia",
+  "Pterosauria",
+  "Titanoboa",
+  "Megalania",
+  "Placodus",
+  "Tanystropheus",
+  "Hyperodapedon",
+  "Stagonolepis",
+  "Scutosaurus",
+  "Pareiasauria",
+  "Archelon",
+  "Stupendemys",
+  "Protostega",
+  "Placodermi",
+  "Leedsichthys",
+  "Onychodontidae",
+  "Acanthostega",
+  "Ichthyostega",
+  "Crassigyrinus",
+  "Archosauria^Aves",
+  "Synapsida^Mammalia"
+];
 
-async function getPbdb() {
+taxa.map((tna, index) => {
+  setTimeout(() => {
+    getPbdb(tna);
+  }, 20 * index);
+});
+
+async function getPbdb(tna) {
   console.log("requesting data...");
-  const url =
-    "https://paleobiodb.org/data1.2/occs/list.json?base_name=dinosauria^aves";
+  const url = "https://paleobiodb.org/data1.2/occs/list.json?base_name=" + tna;
   try {
     let pbdb = await rp({ uri: url, json: true });
     loopPbdb(pbdb);
