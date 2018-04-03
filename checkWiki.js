@@ -2,7 +2,10 @@ const regions = require("./regions.json");
 const rp = require("request-promise");
 const fs = require("fs");
 
-const goodWiki = [];
+const goodWiki = {
+  type: "FeatureCollection",
+  features: []
+};
 const badWiki = [];
 
 String.prototype.toProperCase = function() {
@@ -29,11 +32,12 @@ async function checkWiki(name, region) {
 
 function addNames(resp, name, region) {
   if (resp.query.pages["-1"]) {
-    badWiki.push(region);
+    badWiki.push(name);
   } else {
     for (const page in resp.query.pages) {
-      region["wikiName"] = resp.query.pages[page].title;
-      goodWiki.push(region);
+      region.properties["wikiName"] = resp.query.pages[page].title;
+      region.properties["wikiId"] = page;
+      goodWiki.features.push(region);
     }
   }
 }
